@@ -6,6 +6,5 @@ setup(
    description='some useful and general utilities in pure python',
    author='Hesam Rasouli',
    author_email='hesam.rasouli1@gmail.com',
-   packages=['src/general_utils'],
    install_requires=['aiohttp', 'apscheduler'],
 )
