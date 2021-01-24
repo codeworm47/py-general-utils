@@ -12,7 +12,7 @@ class Config:
     def __read(self, file_path: str):
         try:
             base_path = os.getcwd()  # os.path.abspath(os.curdir)
-            address = f'{base_path}/settings/{file_path}'
+            address = f'{base_path}/{file_path}'
             with open(address, 'r') as f:
                 return json.load(f)
         except FileNotFoundError as ex:
