@@ -8,7 +8,7 @@ class Config:
     def __init__(self, file_path: str):
         self.file_path = file_path
 
-    @lru_cache
+    @lru_cache(maxsize=128)
     def __read(self, file_path: str):
         try:
             base_path = os.getcwd()  # os.path.abspath(os.curdir)
