@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from general_utls.src.configs.config_reader import Config
 import pytz
 
 
@@ -8,5 +9,6 @@ class Dates:
         return datetime.now(timezone.utc)
 
     @staticmethod
-    def now_Iran():
-        return datetime.now(pytz.timezone("IRST"))
+    def now():
+        sys_config = Config("settings/system.json")
+        return datetime.now(pytz.timezone(sys_config.read("zone", "datetime")))
