@@ -12,3 +12,7 @@ class Dates:
     def now():
         sys_config = Config("settings/system.json")
         return datetime.now(pytz.timezone(sys_config.read("zone", "datetime")))
+
+    @staticmethod
+    def today_str():
+        return datetime.today().strftime('%Y-%m-%d')
