@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from general_utls.src.configs.config_reader import Config
 import pytz
 
@@ -19,7 +19,8 @@ class Dates:
     @classmethod
     def from_timestamp(cls, time_stamp: float):
         sys_config = Config("settings/system.json")
-        return datetime.utcfromtimestamp(time_stamp).replace(tzinfo=cls.__get_time_zone())
+        return datetime.fromtimestamp(time_stamp)
+        #.replace(tzinfo=cls.__get_time_zone())
         #.strftime('%Y-%m-%dT%H:%M:%SZ')
 
     @classmethod
