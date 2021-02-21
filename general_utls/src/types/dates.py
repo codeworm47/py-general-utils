@@ -16,3 +16,7 @@ class Dates:
     @staticmethod
     def today_str():
         return datetime.today().strftime('%Y-%m-%d')
+
+    @staticmethod
+    def from_timestamp(time_stamp: float):
+        return datetime.utcfromtimestamp(time_stamp).strftime('%Y-%m-%dT%H:%M:%SZ')
