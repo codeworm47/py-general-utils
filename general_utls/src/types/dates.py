@@ -18,8 +18,8 @@ class Dates:
         return datetime.today().strftime('%Y-%m-%d')
 
     @classmethod
-    def from_timestamp(cls, time_stamp: float):
-        if platform.startswith("win32"):
+    def from_timestamp(cls, time_stamp: float, is_milisec: bool):
+        if is_milisec:
             time_stamp = time_stamp/1000
         return datetime.fromtimestamp(time_stamp, cls.__get_time_zone())
         #.replace(tzinfo=cls.__get_time_zone())
