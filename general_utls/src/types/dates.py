@@ -21,7 +21,8 @@ class Dates:
     def from_timestamp(cls, time_stamp: float, is_milisec: bool):
         if is_milisec:
             time_stamp = time_stamp/1000
-        return datetime.fromtimestamp(time_stamp, cls.__get_time_zone())
+        return datetime.fromtimestamp(time_stamp, cls.__get_time_zone()).strftime('%Y-%m-%dT%H:%M:%SZ, '
+                                                                                  + str(cls.__get_time_zone()))
         #.replace(tzinfo=cls.__get_time_zone())
         #.strftime('%Y-%m-%dT%H:%M:%SZ')
 
