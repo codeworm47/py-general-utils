@@ -1,6 +1,7 @@
 import logging
 import json
 import os
+import abc
 from functools import lru_cache
 from jsonget import json_get
 
@@ -68,3 +69,32 @@ class Config:
         if not obj_path.startswith("/"):
             return "/" + obj_path + "/" + key
         return obj_path + "/" + key
+
+
+class Env:
+    @classmethod
+    def read(cls, key: str):
+        try:
+            if not key:
+                raise ValueError("key is not provided to method args")
+            value = os.environ[key]
+            if not value:
+                raise EnvironmentError(f"environment variable ${key} is not set.")
+            return value
+        except Exception as ex:
+            logging.exception(ex)
+            raise ex
+
+    @classmethod
+    def read_int(cls, key: str) -> int:
+        return int(cls.read(key))
+
+    @classmethod
+    def read_float(cls, key: str) -> float:
+        return float(cls.read(key))
+
+    @classmethod
+    def read_bool(cls, key: str) -> bool:
+        return bool(cls.read(key))
+
+
