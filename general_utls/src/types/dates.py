@@ -5,13 +5,15 @@ from sys import platform
 
 
 class Dates:
-    @staticmethod
-    def now_utc():
-        return datetime.now(timezone.utc)
+    UTC_DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+
+    @classmethod
+    def now_utc(cls):
+        return datetime.now(timezone.utc).strftime(cls.UTC_DATE_FORMAT)
 
     @classmethod
     def now(cls):
-        return datetime.now(cls.__get_time_zone())
+        return datetime.now(cls.__get_time_zone()).strftime(cls.UTC_DATE_FORMAT)
 
     @staticmethod
     def today_str():
@@ -23,9 +25,9 @@ class Dates:
             time_stamp = time_stamp / 1000
         date = datetime.fromtimestamp(time_stamp, cls.__get_time_zone())
         if append_tz:
-            return date.strftime('%Y-%m-%dT%H:%M:%SZ, ' + str(cls.__get_time_zone()))
+            return date.strftime(cls.UTC_DATE_FORMAT+', ' + str(cls.__get_time_zone()))
         else:
-            return date.strftime('%Y-%m-%dT%H:%M:%SZ')
+            return date.strftime(cls.UTC_DATE_FORMAT)
         # .replace(tzinfo=cls.__get_time_zone())
         # .strftime('%Y-%m-%dT%H:%M:%SZ')
 
@@ -33,7 +35,7 @@ class Dates:
     def from_timestamp_utc(cls, time_stamp: float, is_milisec: bool):
         if is_milisec:
             time_stamp = time_stamp / 1000
-        return datetime.fromtimestamp(time_stamp).strftime('%Y-%m-%dT%H:%M:%SZ')
+        return datetime.fromtimestamp(time_stamp).strftime(cls.UTC_DATE_FORMAT)
 
     @classmethod
     def __get_time_zone(cls):
