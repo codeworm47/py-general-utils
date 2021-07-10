@@ -5,6 +5,8 @@ import abc
 from functools import lru_cache
 from jsonget import json_get
 
+from general_utls.src.io.file_helpers import Files
+
 
 class Config:
     def __init__(self, file_path: str):
@@ -14,10 +16,7 @@ class Config:
     def __read(self, file_path: str):
         address = ""
         try:
-            base_path = os.getcwd()  # os.path.abspath(os.curdir)
-            address = f'{base_path}/{file_path}'
-            with open(address, 'r') as f:
-                return json.load(f)
+            return Files.read_json_relative(file_path)
         except FileNotFoundError as ex:
             logging.error("file %s not found", address)
             logging.error(ex)
