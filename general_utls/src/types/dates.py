@@ -1,7 +1,7 @@
+import time
 from datetime import datetime, timezone, timedelta
 from general_utls.src.configs.config_reader import Config
 import pytz
-from sys import platform
 
 
 class Dates:
@@ -36,6 +36,10 @@ class Dates:
         if is_milisec:
             time_stamp = time_stamp / 1000
         return datetime.fromtimestamp(time_stamp).strftime(cls.UTC_DATE_FORMAT)
+
+    @classmethod
+    def hh_mm(cls, date):
+        return time.strftime('%H:%M', date)
 
     @classmethod
     def __get_time_zone(cls):
