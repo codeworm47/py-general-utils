@@ -34,6 +34,10 @@ class Dates:
         # .strftime('%Y-%m-%dT%H:%M:%SZ')
 
     @classmethod
+    def to_timestamp(cls, date):
+        return float(date.strftime("%s"))
+
+    @classmethod
     def from_timestamp_utc(cls, time_stamp: float, is_milisec: bool):
         if is_milisec:
             time_stamp = time_stamp / 1000
