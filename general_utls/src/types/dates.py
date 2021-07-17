@@ -45,7 +45,7 @@ class Dates:
 
     @classmethod
     def hh_mm(cls, date):
-        return time.strftime('%H:%M', date)
+        return date.strftime('%H:%M')
 
     @classmethod
     def __get_time_zone(cls):
