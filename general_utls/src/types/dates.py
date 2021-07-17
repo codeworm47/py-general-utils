@@ -27,7 +27,7 @@ class Dates:
             time_stamp = time_stamp / 1000
         date = datetime.fromtimestamp(time_stamp, cls.__get_time_zone())
         if append_tz:
-            return date.strftime(cls.ISO_DATE_FORMAT + ', ' + str(cls.__get_time_zone()))
+            return cls.with_tz(date)
         else:
             return date.strftime(cls.ISO_DATE_FORMAT)
         # .replace(tzinfo=cls.__get_time_zone())
@@ -46,6 +46,10 @@ class Dates:
     @classmethod
     def hh_mm(cls, date):
         return date.strftime('%H:%M')
+
+    @classmethod
+    def with_tz(cls, date):
+        return date.strftime(cls.ISO_DATE_FORMAT + ', ' + str(cls.__get_time_zone()))
 
     @classmethod
     def __get_time_zone(cls):
