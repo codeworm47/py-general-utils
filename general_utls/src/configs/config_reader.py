@@ -28,6 +28,8 @@ class Config:
                 raise KeyError("key is not provided to read args")
             config = self.__read(self.file_path)
             if not obj_path:
+                if key not in config:
+                    return None
                 return config[key]
             else:
                 return json_get(config, self.__get_obj_path(key, obj_path))
