@@ -5,7 +5,7 @@ import pytz
 
 
 class Dates:
-    ISO_DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+    ISO_DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 
     @classmethod
     def now_utc(cls):
