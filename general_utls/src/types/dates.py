@@ -52,6 +52,18 @@ class Dates:
         return date.strftime(cls.ISO_DATE_FORMAT + ', ' + str(cls.__get_time_zone()))
 
     @classmethod
+    def is_date(cls, dt_str):
+        try:
+            datetime.fromisoformat(dt_str)
+        except ValueError:
+            try:
+                datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
+            except ValueError:
+                return False
+            return True
+        return True
+
+    @classmethod
     def __get_time_zone(cls):
         sys_config = Config("settings/system.json")
         return pytz.timezone(sys_config.read("zone", "datetime"))
