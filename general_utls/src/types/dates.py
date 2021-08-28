@@ -17,6 +17,10 @@ class Dates:
         # return datetime.now(cls.__get_time_zone()).strftime(cls.ISO_DATE_FORMAT)
         return datetime.now(cls.__get_time_zone())
 
+    @classmethod
+    def to_date(cls, date: str):
+        return datetime.strptime(date, cls.ISO_DATE_FORMAT)
+
     @staticmethod
     def today_str():
         return datetime.today().strftime('%Y-%m-%d')
