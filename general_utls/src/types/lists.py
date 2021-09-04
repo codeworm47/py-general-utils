@@ -8,5 +8,5 @@ class Lists:
 
     @classmethod
     def transform(cls, list: List[object], func):
-        assert func is callable
+        # assert func is callable
         return [func(li) for li in list]
