@@ -16,7 +16,7 @@ class CollectionsTests(TestCase):
                 }
             }
         }
-        Collections.remove_recursive(data1, 'name1')
+        Collections.remove_field_recursive(data1, 'name1')
         assert "name1" not in data1
 
         data2 = {
@@ -28,7 +28,7 @@ class CollectionsTests(TestCase):
             }
         }
 
-        Collections.remove_recursive(data2, 'sample.a1.test1')
+        Collections.remove_field_recursive(data2, 'sample.a1.test1')
         assert "test1" not in json_get(data2, "/sample/a1")
 
         data3 = {
@@ -43,7 +43,7 @@ class CollectionsTests(TestCase):
                 }
             ]
         }
-        Collections.remove_recursive(data3, 'list.key')
+        Collections.remove_field_recursive(data3, 'list.key')
         list = data3["list"]
         for l in list:
             assert "key" not in l
@@ -62,7 +62,7 @@ class CollectionsTests(TestCase):
                 }
             ]
         }
-        Collections.remove_recursive(data4, 'list.value.name')
+        Collections.remove_field_recursive(data4, 'list.value.name')
         list = data4["list"]
         assert "name" not in list[0]['value']
 
@@ -76,7 +76,7 @@ class CollectionsTests(TestCase):
                 "value": "4"
             }
         ]
-        Collections.remove_recursive(data5, 'key')
+        Collections.remove_field_recursive(data5, 'key')
         for l in data5:
             assert "key" not in l
 
@@ -96,6 +96,6 @@ class CollectionsTests(TestCase):
                 }
             }
         ]
-        Collections.remove_recursive(data6, 'value.name')
+        Collections.remove_field_recursive(data6, 'value.name')
         for l in data5:
             assert "name" not in l['value']
