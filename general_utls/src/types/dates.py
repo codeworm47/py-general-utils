@@ -1,5 +1,5 @@
 import time
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone, date
 from general_utls.src.configs.config_reader import Config
 import pytz
 
@@ -27,7 +27,7 @@ class Dates:
 
     @classmethod
     def today(cls):
-        return datetime.today().strftime(cls.ISO_DATE_FORMAT)
+        return date.today().strftime(cls.ISO_DATE_FORMAT)
 
     @classmethod
     def from_timestamp(cls, time_stamp: float, is_milisec: bool, append_tz: bool = False):
