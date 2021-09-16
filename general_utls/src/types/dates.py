@@ -26,6 +26,10 @@ class Dates:
         return datetime.today().strftime('%Y-%m-%d')
 
     @classmethod
+    def today(cls):
+        return datetime.today().strftime(cls.ISO_DATE_FORMAT)
+
+    @classmethod
     def from_timestamp(cls, time_stamp: float, is_milisec: bool, append_tz: bool = False):
         if is_milisec:
             time_stamp = time_stamp / 1000
