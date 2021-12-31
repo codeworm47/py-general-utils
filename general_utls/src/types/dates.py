@@ -13,6 +13,10 @@ class Dates:
         return datetime.now(timezone.utc)
 
     @classmethod
+    def now_timestamp(cls):
+        return round(time.time() * 1000)
+
+    @classmethod
     def now(cls):
         # return datetime.now(cls.__get_time_zone()).strftime(cls.ISO_DATE_FORMAT)
         return datetime.now(cls.__get_time_zone())
