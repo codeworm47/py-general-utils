@@ -53,7 +53,7 @@ class Dates:
     def from_timestamp_utc(cls, time_stamp: float, is_milisec: bool):
         if is_milisec:
             time_stamp = time_stamp / 1000
-        return datetime.fromtimestamp(time_stamp).strftime(cls.ISO_DATE_FORMAT)
+        return datetime.utcfromtimestamp(time_stamp).strftime(cls.ISO_DATE_FORMAT)
 
     @classmethod
     def hh_mm(cls, date):
