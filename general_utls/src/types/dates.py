@@ -1,6 +1,7 @@
 import time
 from datetime import datetime, timezone, date
 from general_utls.src.configs.config_reader import Config
+from calendar import monthrange
 import pytz
 
 
@@ -74,6 +75,12 @@ class Dates:
                 return False
             return True
         return True
+
+    @classmethod
+    def number_of_days_in_current_month(cls):
+        now = cls.now()
+        date_range = monthrange(now.year, now.month)
+        return date_range[1]
 
     @classmethod
     def __get_time_zone(cls):
