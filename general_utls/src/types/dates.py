@@ -20,7 +20,7 @@ class Dates:
     @classmethod
     def now(cls):
         # return datetime.now(cls.__get_time_zone()).strftime(cls.ISO_DATE_FORMAT)
-        return datetime.now(cls.__get_time_zone())
+        return datetime.now()
 
     @classmethod
     def to_date(cls, date: str):
