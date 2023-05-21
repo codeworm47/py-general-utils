@@ -67,7 +67,7 @@ class Dates:
     @classmethod
     def is_date(cls, dt_str):
         try:
-            datetime.fromisoformat(dt_str)
+            cls.from_string(dt_str)
         except ValueError:
             try:
                 datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
@@ -81,6 +81,10 @@ class Dates:
         now = cls.now()
         date_range = monthrange(now.year, now.month)
         return date_range[1]
+
+    @classmethod
+    def from_string(cls, dt_str):
+        return datetime.fromisoformat(dt_str)
 
     @classmethod
     def __get_time_zone(cls):
