@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
    name='py_general_utils',
-   version='1.0.0.30',
+   version='1.0.0.31',
    description='some useful and general utilities in pure python',
    author='Hesam Rasouli',
    author_email='hesam.rasouli1@gmail.com',

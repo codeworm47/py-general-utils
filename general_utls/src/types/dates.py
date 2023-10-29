@@ -62,7 +62,7 @@ class Dates:
 
     @classmethod
     def with_tz(cls, date):
-        return date.strftime(cls.ISO_DATE_FORMAT + ', ' + str(cls.__get_time_zone()))
+        return date.strftime(cls.ISO_DATE_FORMAT + ', ' + str(cls.__get_time_zone())).replace('000000', '00')
 
     @classmethod
     def is_date(cls, dt_str):

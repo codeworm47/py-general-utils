@@ -10,10 +10,10 @@ def validate_numeric_value(value, min=None, max=None, include_equals_min=False, 
         if not cond:
             upper_part = f"{get_operand_string('<', include_equals_max)} {max}"
             raise ValueError(
-                f"invalid value: {value}, correct value must be {min} {get_operand_string('>', include_equals_min)} {upper_part if max else ''}")
+                f"invalid value: {value}, correct value must be {min} {get_operand_string('>', include_equals_min)} {value} {upper_part if max else ''}")
     if max:
         cond = value < max if not include_equals_max else value <= max
         if not cond:
             lower_part = f"{min} {get_operand_string('>', include_equals_min)}"
             raise ValueError(
-                f"invalid value: {value}, correct value must be {lower_part if min else ''} {get_operand_string('<', include_equals_max)} {max}")
+                f"invalid value: {value}, correct value must be {lower_part if min else ''} {value} {get_operand_string('<', include_equals_max)} {max}")
