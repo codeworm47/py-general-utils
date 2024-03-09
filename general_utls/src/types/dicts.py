@@ -1,9 +1,9 @@
 from typing import Dict, List
 
 
-class Collections:
+class Dicts:
     @classmethod
-    def remove_field_recursive(cls, data, key: str):
+    def remove_field_recursive(cls, data: Dict, key: str):
         if '.' in key:
             key_list = key.split('.')
             first_key = key_list[0]
@@ -25,7 +25,17 @@ class Collections:
                         del item[key]
 
     @classmethod
-    def remove_fields_recursive(cls, data, keys: List[str]):
+    def remove_fields_recursive(cls, data: Dict, keys: List[str]):
         assert keys
         for key in keys:
             cls.remove_field_recursive(data, key)
+
+    @staticmethod
+    def safe_read(data, path, default=None):
+        keys = path.split('.')
+        try:
+            for key in keys:
+                data = data[key]
+            return data
+        except (KeyError, TypeError):
+            return default
