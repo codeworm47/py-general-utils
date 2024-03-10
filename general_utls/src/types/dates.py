@@ -60,7 +60,7 @@ class Dates:
         length = len(str(ts)[:str(ts).find('.')])
         if length == 10:
             return ts * 1000
-        return ts
+        return int(ts)
 
     @classmethod
     def from_timestamp_utc(cls, time_stamp: float, is_milisec: bool):
