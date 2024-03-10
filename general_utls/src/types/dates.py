@@ -22,10 +22,6 @@ class Dates:
         # return datetime.now(cls.__get_time_zone()).strftime(cls.ISO_DATE_FORMAT)
         return datetime.now()
 
-    @classmethod
-    def to_date(cls, date: str):
-        return datetime.strptime(date, cls.ISO_DATE_FORMAT)
-
     @staticmethod
     def today_str():
         return datetime.today().strftime('%Y-%m-%d')
@@ -35,38 +31,42 @@ class Dates:
         return date.today().strftime(cls.ISO_DATE_FORMAT)
 
     @classmethod
-    def from_timestamp(cls, time_stamp: float, is_milisec: bool, append_tz: bool = False):
+    def from_timestamp_string_date(cls, timestamp: float, is_milisec: bool, append_tz: bool = False) -> str:
         if is_milisec:
-            time_stamp = time_stamp / 1000
-        date = datetime.fromtimestamp(time_stamp, cls.__get_time_zone())
+            timestamp = timestamp / 1000
+        date = datetime.fromtimestamp(timestamp, cls.__get_time_zone())
         if append_tz:
             return cls.with_tz(date)
         else:
             return date.strftime(cls.ISO_DATE_FORMAT)
-        # .replace(tzinfo=cls.__get_time_zone())
-        # .strftime('%Y-%m-%dT%H:%M:%SZ')
+
+    @classmethod
+    def from_timestamp_string_date_utc(cls, timestamp: float, is_milisec: bool) -> str:
+        if is_milisec:
+            timestamp = timestamp / 1000
+        return datetime.utcfromtimestamp(timestamp).strftime(cls.ISO_DATE_FORMAT)
+
+    @classmethod
+    def from_timestamp(cls, timestamp: float, is_milisec: bool) -> datetime:
+        return cls.from_string(cls.from_timestamp_string_date(timestamp, is_milisec))
+
+    @classmethod
+    def from_timestamp_utc(cls, timestamp: float, is_milisec: bool) -> datetime:
+        return cls.from_string(cls.from_timestamp_string_date_utc(timestamp, is_milisec))
 
     @classmethod
     def to_timestamp(cls, date):
-        ts = int(date.strftime("%s"))
-        if len(str(ts)) == 10:
-            return ts * 1000
-        return ts
+        local_tz = cls.__get_time_zone()
+        local_date_aware = local_tz.localize(date)
+        ts = local_date_aware.timestamp()
+        # ts = date.strftime("%s")
+        return cls.__handle_seconds_in_timestamp(ts)
+
 
     @classmethod
     def to_timestamp_utc(cls, date):
         utc_aware_date = date.replace(tzinfo=timezone.utc)
-        ts = float(utc_aware_date.timestamp())
-        length = len(str(ts)[:str(ts).find('.')])
-        if length == 10:
-            return int(ts * 1000)
-        return int(ts)
-
-    @classmethod
-    def from_timestamp_utc(cls, time_stamp: float, is_milisec: bool):
-        if is_milisec:
-            time_stamp = time_stamp / 1000
-        return datetime.utcfromtimestamp(time_stamp).strftime(cls.ISO_DATE_FORMAT)
+        return cls.__handle_seconds_in_timestamp(utc_aware_date.timestamp())
 
     @classmethod
     def hh_mm(cls, date):
@@ -102,3 +102,14 @@ class Dates:
     def __get_time_zone(cls):
         sys_config = Config("settings/system.json")
         return pytz.timezone(sys_config.read("zone", "datetime"))
+
+    @classmethod
+    def __handle_seconds_in_timestamp(cls, timestamp):
+        ts = float(timestamp)
+        print('ts::', ts)
+        ts_str = str(ts)
+        length = len(ts_str[:ts_str.find('.')])
+        if length == 10:
+            return int(ts * 1000)
+        return int(ts)
+
