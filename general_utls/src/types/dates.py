@@ -59,7 +59,7 @@ class Dates:
         ts = float(utc_aware_date.timestamp())
         length = len(str(ts)[:str(ts).find('.')])
         if length == 10:
-            return ts * 1000
+            return int(ts * 1000)
         return int(ts)
 
     @classmethod
