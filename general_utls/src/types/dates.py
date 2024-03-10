@@ -56,8 +56,9 @@ class Dates:
     @classmethod
     def to_timestamp_utc(cls, date):
         utc_aware_date = date.replace(tzinfo=timezone.utc)
-        ts = int(utc_aware_date.timestamp())
-        if len(str(ts)) == 10:
+        ts = float(utc_aware_date.timestamp())
+        length = len(str(ts)[:str(ts).find('.')])
+        if length == 10:
             return ts * 1000
         return ts
 
