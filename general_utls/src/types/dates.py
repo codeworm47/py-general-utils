@@ -51,6 +51,11 @@ class Dates:
         return float(date.strftime("%s"))
 
     @classmethod
+    def to_timestamp_utc(cls, date):
+        utc_aware_date = date.replace(tzinfo=timezone.utc)
+        return utc_aware_date.timestamp()
+
+    @classmethod
     def from_timestamp_utc(cls, time_stamp: float, is_milisec: bool):
         if is_milisec:
             time_stamp = time_stamp / 1000
