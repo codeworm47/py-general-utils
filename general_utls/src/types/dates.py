@@ -48,12 +48,12 @@ class Dates:
 
     @classmethod
     def to_timestamp(cls, date):
-        return float(date.strftime("%s"))
+        return int(date.strftime("%s"))
 
     @classmethod
     def to_timestamp_utc(cls, date):
         utc_aware_date = date.replace(tzinfo=timezone.utc)
-        return utc_aware_date.timestamp()
+        return int(utc_aware_date.timestamp())
 
     @classmethod
     def from_timestamp_utc(cls, time_stamp: float, is_milisec: bool):
