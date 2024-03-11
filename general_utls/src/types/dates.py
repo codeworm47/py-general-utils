@@ -106,7 +106,6 @@ class Dates:
     @classmethod
     def __handle_seconds_in_timestamp(cls, timestamp):
         ts = float(timestamp)
-        print('ts::', ts)
         ts_str = str(ts)
         length = len(ts_str[:ts_str.find('.')])
         if length == 10:
