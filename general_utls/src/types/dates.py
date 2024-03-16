@@ -48,11 +48,15 @@ class Dates:
 
     @classmethod
     def from_timestamp(cls, timestamp: float, is_milisec: bool) -> datetime:
-        return cls.from_string(cls.from_timestamp_string_date(timestamp, is_milisec))
+        if is_milisec:
+            timestamp = timestamp / 1000
+        return datetime.fromtimestamp(timestamp, cls.__get_time_zone())
 
     @classmethod
     def from_timestamp_utc(cls, timestamp: float, is_milisec: bool) -> datetime:
-        return cls.from_string(cls.from_timestamp_string_date_utc(timestamp, is_milisec))
+        if is_milisec:
+            timestamp = timestamp / 1000
+        return datetime.utcfromtimestamp(timestamp)
 
     @classmethod
     def to_timestamp(cls, date):
