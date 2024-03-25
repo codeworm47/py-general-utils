@@ -15,7 +15,11 @@ class Dates:
 
     @classmethod
     def now_timestamp(cls):
-        return round(time.time() * 1000)
+        return time.time() * 1000
+
+    @classmethod
+    def now_timestamp_utc(cls):
+        return cls.now_utc().timestamp() * 1000
 
     @classmethod
     def now(cls):
