@@ -39,3 +39,10 @@ class Dicts:
             return data
         except (KeyError, TypeError):
             return default
+
+    @staticmethod
+    def merge(*dicts):
+        final = {}
+        for d in dicts:
+            final.update(d)
+        return final
