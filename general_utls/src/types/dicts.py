@@ -44,5 +44,6 @@ class Dicts:
     def merge(*dicts):
         final = {}
         for d in dicts:
-            final.update(d)
+            if d and len(d):
+                final.update(d)
         return final
