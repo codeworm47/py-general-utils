@@ -11,12 +11,12 @@ class RestClientAsync:
         try:
             if auth_token is not None:
                 headers['Authorization'] = f'Bearer {auth_token}'
-            if not custom_headers:
+            if custom_headers:
                 headers.update(custom_headers)
             async with aiohttp.ClientSession(headers=headers) as session:
                 async with session.get(url) as response:
-                    logging.debug("GET request completed")
                     logging.debug("response : %s", response)
                     return response.json()
         except Exception as ex:
             logging.exception(ex)
+            raise ex
