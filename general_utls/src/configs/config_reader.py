@@ -24,7 +24,7 @@ class Config:
             if not key:
                 raise KeyError("key is not provided to read args")
             config = self.__read(self.file_path)
-            _key = f"{key}.{obj_path}" if obj_path else key
+            _key = f"{obj_path}.{key}" if obj_path else key
             if throw_if_not_found:
                 value = Dicts.safe_read(config, _key)
                 if not value:
