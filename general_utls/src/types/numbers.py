@@ -6,7 +6,8 @@ class Numbers:
     def reduce_floating_points(input: float, reduce_count: int = 2):
         if not input:
             return input
-        return float(f'{input:.{reduce_count}f}')
+        format_string = "{:." + str(reduce_count) + "f}"
+        return float(format_string.format(input))
 
     @staticmethod
     def safe_int(input: Optional[int]):
