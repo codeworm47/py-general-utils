@@ -60,7 +60,7 @@ class Dates:
     def from_timestamp_utc(cls, timestamp: float, is_milisec: bool) -> datetime:
         if is_milisec:
             timestamp = timestamp / 1000
-        return datetime.utcfromtimestamp(timestamp)
+        return datetime.fromtimestamp(timestamp, timezone.utc)
 
     @classmethod
     def to_timestamp(cls, date):
