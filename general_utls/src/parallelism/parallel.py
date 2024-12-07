@@ -7,6 +7,9 @@ class Parallel:
         def get_args(item, *args):
             return [item, *args]
 
+        if not work_items or not len(work_items):
+            return []
+
         results = []
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             futures = [executor.submit(fn, *get_args(item, *fn_args)) for item in work_items]
