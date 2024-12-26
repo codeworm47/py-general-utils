@@ -28,7 +28,7 @@ class RestClientAsync:
     async def post(url: str, body: Any, auth_token: str = None, custom_headers: Dict = None):
         headers = {}
 
-        msg = f"executing GET call to {url}"
+        msg = f"executing POST call to {url}"
         if auth_token:
             msg += f", auth token: {auth_token}"
             headers['Authorization'] = f'Bearer {auth_token}'
@@ -38,7 +38,7 @@ class RestClientAsync:
         logging.debug(msg)
 
         async with aiohttp.ClientSession(headers=headers) as session:
-            async with session.post(url, data=body) as response:
+            async with session.post(url, json=body) as response:
                 logging.debug("response status code : %s", response.status)
                 return await response.json()
 
