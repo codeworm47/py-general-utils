@@ -1,3 +1,5 @@
+from typing import Dict
+
 import aiohttp
 import logging
 
@@ -5,18 +7,19 @@ import logging
 class RestClientAsync:
 
     @staticmethod
-    async def call_get(url: str, auth_token: str = None, custom_headers: dict = None):
-        logging.debug("executing GET call to %s, token %s, customer headers %s", url, auth_token, custom_headers)
+    async def get(url: str, url_params: Dict = None, auth_token: str = None, custom_headers: Dict = None):
         headers = {}
-        try:
-            if auth_token is not None:
-                headers['Authorization'] = f'Bearer {auth_token}'
-            if custom_headers:
-                headers.update(custom_headers)
-            async with aiohttp.ClientSession(headers=headers) as session:
-                async with session.get(url) as response:
-                    logging.debug("response : %s", response)
-                    return response.json()
-        except Exception as ex:
-            logging.exception(ex)
-            raise ex
+
+        msg = f"executing GET call to {url}"
+        if auth_token:
+            msg += f", auth token: {auth_token}"
+            headers['Authorization'] = f'Bearer {auth_token}'
+        if custom_headers:
+            msg += f", custom headers: {custom_headers}"
+            headers.update(custom_headers)
+        logging.debug(msg)
+
+        async with aiohttp.ClientSession(headers=headers) as session:
+            async with session.get(url, params=url_params) as response:
+                logging.debug("response status code : %s", response.status)
+                return response.json()
