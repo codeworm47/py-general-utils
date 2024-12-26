@@ -22,4 +22,4 @@ class RestClientAsync:
         async with aiohttp.ClientSession(headers=headers) as session:
             async with session.get(url, params=url_params) as response:
                 logging.debug("response status code : %s", response.status)
-                return response.json()
+                return await response.json()
