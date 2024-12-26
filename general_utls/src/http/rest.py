@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Any
 
 import aiohttp
 import logging
@@ -25,7 +25,7 @@ class RestClientAsync:
                 return await response.json()
 
     @staticmethod
-    async def post(url: str, body: Dict, auth_token: str = None, custom_headers: Dict = None):
+    async def post(url: str, body: Any, auth_token: str = None, custom_headers: Dict = None):
         headers = {}
 
         msg = f"executing GET call to {url}"
