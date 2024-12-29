@@ -16,4 +16,4 @@ class Files:
     @classmethod
     def read_raw_relative(cls, file_path: str):
         with open(cls.get_absolute_path(file_path), 'r') as f:
-            return f
+            return f.read()
