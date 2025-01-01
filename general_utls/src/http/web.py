@@ -1,3 +1,6 @@
+import httpx
+
+
 class WebClientAsync:
     @classmethod
     async def get_html(cls, url):
