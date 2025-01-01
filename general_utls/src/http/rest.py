@@ -1,6 +1,6 @@
 from typing import Dict, Any
 
-import aiohttp
+import httpx
 import logging
 
 
@@ -19,10 +19,11 @@ class RestClientAsync:
             headers.update(custom_headers)
         logging.debug(msg)
 
-        async with aiohttp.ClientSession(headers=headers) as session:
-            async with session.get(url, params=url_params) as response:
-                logging.debug("response status code : %s", response.status)
-                return await response.json()
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, params=url_params, headers=headers)
+            logging.debug("response status code : %s", response.status_code)
+            response.raise_for_status()
+            return response.json()
 
     @staticmethod
     async def post(url: str, body: Any, auth_token: str = None, custom_headers: Dict = None):
@@ -37,8 +38,9 @@ class RestClientAsync:
             headers.update(custom_headers)
         logging.debug(msg)
 
-        async with aiohttp.ClientSession(headers=headers) as session:
-            async with session.post(url, json=body) as response:
-                logging.debug("response status code : %s", response.status)
-                return await response.json()
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, json=body, headers=headers)
+            logging.debug("response status code : %s", response.status_code)
+            response.raise_for_status()
+            return response.json()
 
