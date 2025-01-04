@@ -70,7 +70,6 @@ class Dates:
         # ts = date.strftime("%s")
         return cls.__handle_seconds_in_timestamp(ts)
 
-
     @classmethod
     def to_timestamp_utc(cls, date):
         utc_aware_date = date.replace(tzinfo=timezone.utc)
@@ -105,6 +104,10 @@ class Dates:
     @classmethod
     def from_string(cls, dt_str):
         return datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
+
+    @classmethod
+    def to_string(cls, date):
+        return date.strftime(cls.ISO_DATE_FORMAT)
 
     @classmethod
     def __get_time_zone(cls):
