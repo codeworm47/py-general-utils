@@ -8,9 +8,12 @@ class Lists:
 
     @staticmethod
     def transform(list: List[object], func):
-        # assert func is callable
         return [func(li) for li in list]
 
     @staticmethod
     def remove_duplicates(list: List[object]):
         return [i for n, i in enumerate(list) if i not in list[:n]]
+
+    @staticmethod
+    def chunk(list, size):
+        return [list[i:i + size] for i in range(0, len(list), size)]
