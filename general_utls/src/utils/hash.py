@@ -23,7 +23,7 @@ class Hash:
         return hash_obj.hexdigest()
 
     @staticmethod
-    def hash_list(d: List[Dict]):
+    def hash_list(d: List):
         list_str = json.dumps(d, sort_keys=True, default=date_wise_converter)
         hash_obj = hashlib.sha256()
         hash_obj.update(list_str.encode('utf-8'))
