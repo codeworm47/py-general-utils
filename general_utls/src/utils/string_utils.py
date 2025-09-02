@@ -1,6 +1,6 @@
 import string
 import uuid
-from random import random
+import random
 
 
 class StringUtils:
