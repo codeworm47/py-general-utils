@@ -22,18 +22,18 @@ def grab_headers_and_log(verb: str, url: str, auth_token: str = None, custom_hea
 class RestClientAsync:
 
     @staticmethod
-    async def get(url: str, url_params: Dict = None, auth_token: str = None, custom_headers: Dict = None):
+    async def get(url: str, url_params: Dict = None, auth_token: str = None, custom_headers: Dict = None, **options):
         headers = grab_headers_and_log("GET", url, auth_token, custom_headers)
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(**options) as client:
             response = await client.get(url, params=url_params, headers=headers)
             logging.debug("response status code : %s", response.status_code)
             response.raise_for_status()
             return response.json()
 
     @staticmethod
-    async def post(url: str, body: Any, auth_token: str = None, custom_headers: Dict = None):
+    async def post(url: str, body: Any, auth_token: str = None, custom_headers: Dict = None, **options):
         headers = grab_headers_and_log("POST", url, auth_token, custom_headers)
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(**options) as client:
             response = await client.post(url, json=body, headers=headers)
             logging.debug("response status code : %s", response.status_code)
             response.raise_for_status()
@@ -42,18 +42,18 @@ class RestClientAsync:
 
 class RestClient:
     @staticmethod
-    def get(url: str, url_params: Dict = None, auth_token: str = None, custom_headers: Dict = None):
+    def get(url: str, url_params: Dict = None, auth_token: str = None, custom_headers: Dict = None, **options):
         headers = grab_headers_and_log("GET", url, auth_token, custom_headers)
-        with httpx.Client() as client:
+        with httpx.Client(**options) as client:
             response = client.get(url, params=url_params, headers=headers)
             logging.debug("response status code : %s", response.status_code)
             response.raise_for_status()
             return response.json()
 
     @staticmethod
-    def post(url: str, body: Any, auth_token: str = None, custom_headers: Dict = None):
+    def post(url: str, body: Any, auth_token: str = None, custom_headers: Dict = None, **options):
         headers = grab_headers_and_log("POST", url, auth_token, custom_headers)
-        with httpx.Client() as client:
+        with httpx.Client(**options) as client:
             response = client.post(url, json=body, headers=headers)
             logging.debug("response status code : %s", response.status_code)
             response.raise_for_status()
